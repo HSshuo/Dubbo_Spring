@@ -23,13 +23,18 @@
 ### Dubbo
 #### dubbo原理
 ![image](https://github.com/HSshuo/PictureBed/blob/main/dubbo.png)
+
 初始化的时候已经进行：
 1. Provider：提供者，将服务暴露（@DubboService），启动时将服务注册到Registry注册中心；
 2. Consumer：消费者，调用服务（@Reference），向Registry注册中心订阅服务，也可以直接通过Dubbo直接提供者暴露地址。默认服务容错是Failover Cluster失败自动切换，配合设置重试次数使用retries；
 3. Registry：注册中心，提供给消费者服务者提供的服务，如果有变更，会基于长连接推送变更数据给消费者；
+
 使用：
+
 4. invoke：调用，消费者调用提供者提供的服务；
+
 异步执行：
+
 5. Monitor：监控中心，将消费者，提供者在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。
 
 
@@ -42,11 +47,13 @@
 ##### 监控中心：使用dubbo-monitor-simple查看情况；
 ##### 服务降级：使用dubbo-admin，操作服务降级；
 概念：当服务器压力剧增的情况下，根据实际业务情况以及流量对一些服务和页面有策略的不处理或者换种简单的方式处理，从而释放一些服务器资源来保证核心交易正常运作和高效运作。
+
 种类：
 1. mock=force:return null：表示消费者对该服务方法调用直接返回null值，**不发起远程调用**。用来屏蔽不重要的服务**不可用**时对调用方的影响；
 2. mock=fail:return null：表示消费者对该服务方法调用在失败后，再返回null值，不抛出异常。用来容忍不重要服务**不稳定**时对调用方的影响。
 
 ##### 服务容错：统一配置<dubbo:provider cluster = "" />配置 < 接口配置 < 方法配置；
+
 种类：
 1. Failover cluster：失败自动切换，一般用在触发**重试**的时候retries；重试要注意**幂等性**如果幂等的时候可以不断重试（查询、修改、删除），非幂等操作不可以重试（新增）；
 2. Failfast cluster：快速失败，只发起一次调用，失败后立即报错，用于**非幂等**操作，比如新增记录；
@@ -66,7 +73,7 @@
 统一配置<dubbo:provider cluster = "" />配置 **<** 接口配置<dubbo:service />、<dubbo:reference /> **<** 方法配置<dubbo:method />；
 
 
-#### dubbo超时时间的生效层级
+#### dubbo超时时间（timeout）的生效层级
 - 精确优先（根据方法配置、接口配置、统一配置）；
 - 同一级别下，消费者优先。
 
@@ -90,7 +97,7 @@ zookeeper宕机，还能否远程调用？
 
 
 ### 拓展
-- 使用XML配置dubbo命名空间出现问题：[link](https://blog.csdn.net/Ciel_Y/article/details/118895806)
+- 使用XML配置dubbo命名空间出现问题：[通配符的匹配很全面, 但无法找到元素'dubbo:application'](https://blog.csdn.net/Ciel_Y/article/details/118895806)
 - springcloud：![image](https://github.com/HSshuo/PictureBed/blob/main/springcloud.png)
 
 
