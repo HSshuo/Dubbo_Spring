@@ -15,6 +15,7 @@
 - 种类：springcloud Feigh、gRPC、thrift、RMI、dubbo、HadoopRPC。
 - 核心（重点围绕）：**通信协议和序列化（xml、json、protobuf、thrift）**。
 - 原理：Client（调用） --> ClientStub（序列化） 《==（网络传输）==》 ServerStub（反序列化）--> Server（处理）
+
 ![image](https://github.com/HSshuo/PictureBed/blob/main/rpc.png)
 
 
