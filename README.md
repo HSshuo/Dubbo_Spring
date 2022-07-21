@@ -120,6 +120,7 @@
 ##### 高度可扩展能力
 - Dubbo：采用微内核架构，遵循 微内核 + 插件 的设计模式，微内核只负责组装插件，插件可以拓展系统的功能；
 - 通常情况下，微内核都会采用Factory、IOC、OSGI等方式管理插件声明周期。Dubbo采用Dubbo SPI的机制，支持AOP、IOC实现管理插件。
+
 ![微内核](https://user-images.githubusercontent.com/70870058/180193771-598412fc-a2d1-4fc0-9484-3b34e705f90a.png)
 
 ###### 参考
