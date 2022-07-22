@@ -12,7 +12,7 @@
 
 #### 微服务架构中的服务通信多数是基于RPC通信实现
 - Springcloud基于Feigh组件实现RPC通信（**基于http协议（短连接）+Json序列化**）；
-- Dubbo基于SPI拓展了很多PRC通信框架，包括RMI、Dubbo、Hessian等通信框架（**默认是Dubbo协议（单一长连接）+Hessian2序列化**）；
+- Dubbo基于SPI拓展了很多PRC通信框架，包括RMI、Dubbo、Hessian等通信框架（**默认是Dubbo协议（单一长连接）+ Hessian序列化**）；
 - Dubbo通信可以支持抢购类的高并发，在这个业务场景中，请求的特点是瞬时高峰、请求量大和传入、传出参数数据包较小；
 
 <br>
@@ -25,6 +25,8 @@
 <br>
 
 ### Dubbo
+- 是一款高性能、轻量级的开源Java RPC框架，提供了三大核心能力：面向接口的远程方法调用、智能容错和负载均衡、服务自动注册和发现。
+
 #### dubbo原理
 ![image](https://github.com/HSshuo/PictureBed/blob/main/dubbo.png)
 
