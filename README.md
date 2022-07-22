@@ -18,19 +18,8 @@
 <br>
 
 #### RPC
-- 概念：远程服务调用，是通过网络请求远程计算机程序服务的通信技术。RPC框架封装好了**底层网络通信、序列化**等技术，我们只需要在项目中引入各个服务的接口包，就可以实现在代码中调用RPC服务同调用本地方法一样。正因为这种方便、透明的远程调用，RPC被广泛应用与当下企业级以及互联网项目中，是实现分布式系统的核心。
-- 种类：springcloud Feigh、gRPC、thrift、RMI、dubbo、HadoopRPC。
-- 核心（重点围绕）：**通信协议和序列化（xml、json、protobuf、thrift）**。
-- 原理：Client（调用） --> ClientStub（序列化） 《==（网络传输）==》 ServerStub（反序列化）--> Server（处理）
-
-![image](https://github.com/HSshuo/PictureBed/blob/main/rpc.png)
-
-<br>
-
-#### RPC与HTTP的区别？
-- RPC远程过程调用，是对不同应用间相互调用的一种描述，**侧重点在于应用间服务的调用，实现包括处理调用语义**（函数名，参数，返回值，异常，序列化等）；
-- HTTP是一种应用层网络传输协议，**侧重点在于网络数据包可靠高效地传输**；
-- RPC调用的数据传输可以基于HTTP协议、TCP协议、UDP协议，数据传输只是RPC的一部分，还有处理调用的语义等；
+- [RPC](https://blog.nowcoder.net/n/42ee6a2d05a34618813148ab0e783eef)
+- [RMI机制](https://github.com/HSshuo/RMI)
 
 <br>
 <br>
