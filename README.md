@@ -11,8 +11,8 @@
 <br>
 
 #### 微服务架构中的服务通信多数是基于RPC通信实现
-- Springcloud基于Feigh组件实现RPC通信（**基于http协议（短连接）+Json序列化**）；
-- Dubbo基于SPI拓展了很多PRC通信框架，包括RMI、Dubbo、Hessian等通信框架（**默认是Dubbo协议（单一长连接）+ Hessian序列化**）；
+- Springcloud基于Feigh组件实现RPC通信（**HTTP短连接 + Json序列化**）；
+- Dubbo基于SPI拓展了很多PRC通信框架，包括RMI（**TCP协议**）、Dubbo（**单一长连接**）、Hessian（**HTTP短连接**）等通信框架（**默认是Dubbo协议（单一长连接）+ Hessian序列化**）；
 - Dubbo通信可以支持抢购类的高并发，在这个业务场景中，请求的特点是瞬时高峰、请求量大和传入、传出参数数据包较小；
 
 <br>
@@ -33,7 +33,7 @@
 初始化的时候已经进行：
 1. Provider：提供者，将服务暴露（@DubboService），启动时将服务注册到Registry注册中心；
 2. Consumer：消费者，调用服务（@Reference），向Registry注册中心订阅服务，也可以**直接通过Dubbo暴露提供者的地址**。默认服务容错是Failover Cluster失败自动切换，配合设置重试次数使用retries；
-3. Registry：注册中心，提供给消费者服务者提供的服务，如果有变更，会基于长连接推送变更数据给消费者；
+3. Registry：注册中心，**用于发布和订阅服务的平台**，用于替代SOA结构体系框架中的ESB服务总线。提供给消费者服务者提供的服务，如果有变更，会基于长连接推送变更数据给消费者；
 
 使用：
 
@@ -42,6 +42,18 @@
 异步执行：
 
 5. Monitor：监控中心，将消费者，提供者在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心。
+
+<br>
+
+##### 注册中心
+1. Zookeeper（支持分布式，有广泛的周边开源产品；但是依赖于Zookeeper的稳定性）
+2. MulticastRedis（支持基于客户端双写的集群方式、性能高；但是要求服务器时间同步，用于检查心跳过期脏数据）
+3. Multicast
+4. Simple
+
+###### 服务治理 
+Service服务下线怎么办？
+- 心跳、健康检测
 
 <br>
 <br>
