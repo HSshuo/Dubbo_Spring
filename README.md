@@ -47,7 +47,7 @@
 
 ##### 注册中心
 1. Zookeeper（支持分布式，有广泛的周边开源产品；但是依赖于Zookeeper的稳定性）
-2. MulticastRedis（支持基于客户端双写的集群方式、性能高；但是要求服务器时间同步，用于检查心跳过期脏数据）
+2. Redis（支持基于客户端双写的集群方式、性能高；但是要求服务器时间同步，用于检查心跳过期脏数据）
 3. Multicast
 4. Simple
 
@@ -55,10 +55,42 @@
 Service服务下线怎么办？
 - 心跳、健康检测
 
+注册中心是可选的？
+- 直接在配置文件里面写url、实现提供方和消费方直连
+
+注册中心宕机了怎么办？
+- 不会影响已经正常运行的提供者和消费者，因为消费者有本地缓存提供者的信息
+
 <br>
 <br>
 
-#### dubbo框架
+#### Dubbo框架
+
+#### Dubbo分层架构
+
+总体分三层，Business（业务层）、RPC层、Remoting
+
+![image](https://user-images.githubusercontent.com/70870058/180641979-b76cbaa8-cb2a-4dcd-8161-d4bf810204e6.png)
+
+细分有10层：
+1. Service 接口层：给服务提供者和消费者来实现
+2. Config 配置层：主要对Dubbo进行各种配置，以SeviceConfig、ReferenceConfig 为中心，可以直接初始化配置类，也可以通过Spring解析配置生成配置类
+3. Proxy 服务代理层：生成服务客户端Stub、服务端Skeleton，代理之间进行网络通信，做远程调用和返回结果（以ServiceProxy为中心，拓展接口为ProxyFactory）
+4. Registry 注册中心层：负责服务的注册与发现，（以服务URL为中心，拓展接口为RegistryFactory、Registry、RegistryService）
+5. Cluster 路由层：封装多个服务提供者的路由以及负载均衡，（以Invoker为中心，扩展接口为Cluster、Directory、Router、LoadBalance）
+6. Monitor 监控层：对RPC调用次数和调用时间监控
+7. Protocol 远程调用层：封装RPC的调用，（以Invocation、Result为中心，扩展接口为 Protocol、Invoker、Exporter）
+8. exchange 信息交换层：封装请求响应模式，同步转异步，（以Request、Response为中心，扩展接口为Exchanger、ExchangeChannel、ExchangeClient、ExchangeServer）
+9. transport 网络传输层：抽象了网络传输的统一接口，可以使用mina或者 netty
+10. serialize 数据序列化层：数据序列化成二进制流，二进制流反序列化成数据
+
+![image](https://user-images.githubusercontent.com/70870058/180195049-3aa1e1ca-b770-4168-8942-08179816d586.png)
+
+###### 参考
+- [Dubbo架构](https://dubbo.apache.org/zh/docs3-v2/java-sdk/concepts-and-architecture/code-architecture/)
+
+<br>
+<br>
 
 #### dubbo提供的服务
 1. 服务治理（服务注册和服务发现）：可以用zookeeper、或者dubbo直连（@Reference（url = ""））；
@@ -129,26 +161,6 @@ Service服务下线怎么办？
 ###### 参考
 - [Dubbo拓展性](https://dubbo.apache.org/zh/docs3-v2/java-sdk/concepts-and-architecture/overall-architecture/)
 - [SPI](https://github.com/HSshuo/SPI)
-
-<br>
-<br>
-
-#### Dubbo架构
-1. Service 接口层：给服务提供者和消费者来实现
-2. Config 配置层：主要对Dubbo进行各种配置，以SeviceConfig、ReferenceConfig 为中心，可以直接初始化配置类，也可以通过Spring解析配置生成配置类
-3. Proxy 服务代理层：生成服务客户端Stub、服务端Skeleton，代理之间进行网络通信，以ServiceProxy为中心，拓展接口为ProxyFactory
-4. Registry 注册中心层：负责服务的注册与发现，以服务URL为中心，拓展接口为RegistryFactory、Registry、RegistryService
-5. Cluster 路由层：封装多个服务提供者的路由以及负载均衡，以Invoker为中心，扩展接口为Cluster、Directory、Router、LoadBalance
-6. Monitor 监控层：对RPC调用次数和调用时间监控
-7. Protocol 远程调用层：封装RPC的调用，以Invocation、Result为中心，扩展接口为 Protocol、Invoker、Exporter
-8. exchange 信息交换层：封装请求响应模式，同步转异步，以Request、Response为中心，扩展接口为Exchanger、ExchangeChannel、ExchangeClient、ExchangeServer
-9. transport 网络传输层：抽象mina和netty为统一接口
-10. serialize 数据序列化层：可复用的一些工具
-
-![image](https://user-images.githubusercontent.com/70870058/180195049-3aa1e1ca-b770-4168-8942-08179816d586.png)
-
-###### 参考
-- [Dubbo架构](https://dubbo.apache.org/zh/docs3-v2/java-sdk/concepts-and-architecture/code-architecture/)
 
 <br>
 <br>
