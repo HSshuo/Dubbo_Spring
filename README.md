@@ -86,9 +86,6 @@ Service服务下线怎么办？
 
 ![image](https://user-images.githubusercontent.com/70870058/180195049-3aa1e1ca-b770-4168-8942-08179816d586.png)
 
-###### 参考
-- [Dubbo架构](https://dubbo.apache.org/zh/docs3-v2/java-sdk/concepts-and-architecture/code-architecture/)
-
 <br>
 <br>
 
@@ -132,6 +129,13 @@ Service服务下线怎么办？
 2. 基于权重的轮询负载均衡机制（RoundRobin LoadBalance）；
 3. 最少活跃数负载均衡机制（LeastActive LoadBalance）；最少活跃数根据的是上一次服务器处理请求花费的时间；
 4. 一致性hash负载均衡机制（ConsistentHash LoadBalance）；可以保证高可用，当一台服务器宕机后可以均匀的将服务的请求快速的迁移到其他几台机子上分摊压力。（类似于getUser?id = * 一致的id访问一样的服务）。
+
+<br>
+<br>
+
+#### Dubbo调用过程
+- [Dubbo服务暴露]()
+- [Dubbo服务消费]()
 
 <br>
 <br>
@@ -226,5 +230,8 @@ Service服务下线怎么办？
 - 使用XML配置dubbo命名空间出现问题：[通配符的匹配很全面, 但无法找到元素'dubbo:application'](https://blog.csdn.net/Ciel_Y/article/details/118895806)
 - springcloud：![image](https://github.com/HSshuo/PictureBed/blob/main/springcloud.png)
 
-
+### 参考
+- [b站周瑜SPI机制讲解](https://www.bilibili.com/video/BV1zp4y1q7fg?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=211430be5830488947b1b481d9e2794c)
+- [官网 Dubbo架构](https://dubbo.apache.org/zh/docs3-v2/java-sdk/concepts-and-architecture/code-architecture/)
+- [敖丙 Dubbo系列](https://github.com/AobingJava/JavaFamily)
 
