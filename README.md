@@ -108,34 +108,15 @@ Service服务下线怎么办？
 
 <br>
 
-##### 服务容错
-优先级：统一配置<dubbo:provider cluster = "" /> **<** 接口配置<dubbo:service />、<dubbo:reference /> **<** 方法配置<dubbo:method />；
-
-
-种类：
-1. Failover cluster：失败自动切换，一般用在触发**重试**的时候retries；重试要注意**幂等性**如果幂等的时候可以不断重试（查询、修改、删除），非幂等操作不可以重试（新增）；
-2. Failfast cluster：快速失败，只发起一次调用，失败后立即报错，用于**非幂等**操作，比如新增记录；
-3. Failsafe cluster：失败安全，出现异常时，直接忽略。通常用于**审计日志**等操作；
-4. Failback cluster：失败自动恢复，后台记录失败请求，定时重发。用于**消息通知**操作；
-5. Forking cluster：只要一个成功即返回，通常用于**实时性要求较高的读**操作，但浪费更多服务资源；
-6. Broadcast cluster：广播所有提供者，逐一调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或者日志等本地资源操作，也就是**每台服务器上的信息要求一致**。
-
-<br>
-
-##### 负载均衡：
-
-使用dubbo-admin，操作可以增加权重；
-1. 基于权重的随机负载均衡机制（Random LoadBalance）**默认**;
-2. 基于权重的轮询负载均衡机制（RoundRobin LoadBalance）；
-3. 最少活跃数负载均衡机制（LeastActive LoadBalance）；最少活跃数根据的是上一次服务器处理请求花费的时间；
-4. 一致性hash负载均衡机制（ConsistentHash LoadBalance）；可以保证高可用，当一台服务器宕机后可以均匀的将服务的请求快速的迁移到其他几台机子上分摊压力。（类似于getUser?id = * 一致的id访问一样的服务）。
+##### 服务容错、负载均衡
+- [Dubbo 集群容错、负载均衡](https://blog.nowcoder.net/n/078d7469b60f4fc78066519d506a027c)
 
 <br>
 <br>
 
 #### Dubbo调用过程
 - [Dubbo服务暴露](https://blog.nowcoder.net/n/5bda4e8f3f654c47a5bd5d12f972c9bc)
-- [Dubbo服务消费]()
+- [Dubbo服务消费](https://blog.nowcoder.net/n/b28f6c311ac146ab81439495b67781ed)
 
 <br>
 <br>
